@@ -13,11 +13,22 @@
 # then start a new container from your Hub image, and watch how it auto downloads and runs
 # test again that it works at http://localhost
 
+From node:6.15-alpine
+#Maintainer
+Expose 3000
+# RUN apt-get update      not working
+Run apk add --update tini
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY package.json package.json
+RUN npm install && npm cache clean --force
+COPY . .
+CMD ["/sbin/tini", "--", "node", "./bin/www"] 
 
 # Instructions from the app developer
 # - you should use the 'node' official image, with the alpine 6.x branch
 # - this app listens on port 3000, but the container should launch on port 80
-  #  so it will respond to http://localhost:80 on your computer
+#  so it will respond to http://localhost:80 on your computer
 # - then it should use alpine package manager to install tini: 'apk add --update tini'
 # - then it should create directory /usr/src/app for app files with 'mkdir -p /usr/src/app'
 # - Node uses a "package manager", so it needs to copy in package.json file
