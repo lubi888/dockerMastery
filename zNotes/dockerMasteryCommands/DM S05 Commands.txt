@@ -62,6 +62,15 @@ docker container run -d --name nginx2 -p 8080:80 nginx
 
 docker container exec -it nginx bash
 
+
+##
+//use separate volume container and update postgresql
+docker container run -d --name psql -v psql:/var/lib/postgresql/data postgres:9.6.1
+docker container logs -f  psql
+docker container run -d --name psql2 -v psql:/var/lib/postgresql/data postgres:9.6.2
+docker container logs -f  psql2
+
+
 ## Assignment Answers: Edit Code Running In Containers With Bind Mounts
 
 docker run -p 80:4000 -v $(pwd):/site bretfisher/jekyll-serve
