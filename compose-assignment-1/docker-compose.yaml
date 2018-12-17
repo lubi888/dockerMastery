@@ -1,0 +1,32 @@
+version: '2'
+
+# based off compose-sample-2, only we build nginx.conf into image
+# uses sample site from https://startbootstrap.com/template-overviews/agency/
+
+services:
+  drupalPgsql:
+    image: drupal:8-apache
+#    build:
+#      context: .
+#      dockerfile: nginx.Dockerfile
+    ports:
+      - '8080:80'
+    volumes:
+      - drupal-modules:/var/www/html/modules
+      - drupal-profiles:/var/www/html/profiles
+      - drupal-themes:/var/www/html/themes
+        # this takes advantage of the feature in Docker that a new anonymous
+        # volume (which is what we're creating here) will be initialized with the
+        # existing content of the image at the same location
+      - drupal-sites:/var/www/html/sites
+    restart: always
+  postgresSql:
+    image: postgres:10
+    environment:
+      - POSTGRES_PASSWORD:="example2"    #or D="example2"
+    restart: always
+volumes:
+  drupal-modules:
+  drupal-profiles:
+  drupal-themes:
+  drupal-sites:
