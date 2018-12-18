@@ -5,7 +5,7 @@ version: '2'
 
 services:
   drupalPgsql:
-    image: drupal:8-apache
+    image: drupal
 #    build:
 #      context: .
 #      dockerfile: nginx.Dockerfile
@@ -20,10 +20,10 @@ services:
         # existing content of the image at the same location
       - drupal-sites:/var/www/html/sites
     restart: always
-  postgresSql:
-    image: postgres:10
+  postgresSql:  #use this word instead of localhost|postgres in advanced settings
+    image: postgres
     environment:
-      - POSTGRES_PASSWORD:="example2"    #or D="example2"
+      POSTGRES_PASSWORD: example2    #or D="example2"
     restart: always
 volumes:
   drupal-modules:
