@@ -12,7 +12,7 @@ services:
     ports:
       - '8080:80'
     volumes:
-      - drupal-modules:/var/www/html/modules
+      - drupal-modules:/var/www/html/modulesm
       - drupal-profiles:/var/www/html/profiles
       - drupal-themes:/var/www/html/themes
         # this takes advantage of the feature in Docker that a new anonymous

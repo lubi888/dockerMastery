@@ -18,7 +18,7 @@ docker service create --name drupal --network mydrupal -p 80:80 drupal
 
 docker service ls
 
-watch docker service ls
+watch docker service ls   #continually updated, may nead install
 
 docker service ps drupal
 
