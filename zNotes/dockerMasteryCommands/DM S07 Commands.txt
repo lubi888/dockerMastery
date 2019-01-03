@@ -103,7 +103,7 @@ docker service ps psql
 docker container logs psql TAB COMPLETION
 
 docker service create --name drupal --network mydrupal -p 80:80 drupal
-
+#login drupal psql. db host [name of docker service psql     port 5432]
 docker service ls
 
 watch docker service ls
