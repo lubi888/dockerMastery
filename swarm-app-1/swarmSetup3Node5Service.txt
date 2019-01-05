@@ -1,7 +1,7 @@
 ## Assignment Answers: Create a Multi-Service Multi-Node Web App
 
 #create 3 node swarm
-#open ingress firewall 5001
+#open ingress 5001 firewall
 
 docker node ls
 
