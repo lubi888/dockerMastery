@@ -1,0 +1,38 @@
+# version upgrade
+version: '3.1'
+
+services:
+  drupalPgsql3:
+    image: drupal:8.2  #uniquie name , different than last container
+    ports:
+      - '80:80'  #new was 80:80
+    volumes:
+      - drupal-modules:/var/www/html/modules
+      - drupal-profiles:/var/www/html/profiles
+      - drupal-themes:/var/www/html/themes
+      - drupal-sites:/var/www/html/sites
+    restart: always
+  postgresSql2:  #use this word instead of localhost|postgres in advanced settings
+    image: postgres:9.6
+    secrets:
+      - psql-pw
+    environment:
+      - POSTGRES_PASSWORD_FILE=/run/secrets/psql-pw
+    volumes:   #new
+      - drupal-data:/var/lib/postgresql/data
+    restart: always
+volumes:
+  drupal-modules:
+  drupal-profiles:
+  drupal-themes:
+  drupal-sites:
+  drupal-data:
+
+secrets:
+  psql-pw:
+    external: true
+
+
+#echo "pw" | docker secret create psql_pass - TAB COMPLETION
+#docker stack deploy -c docker-compose.yml mydb
+
