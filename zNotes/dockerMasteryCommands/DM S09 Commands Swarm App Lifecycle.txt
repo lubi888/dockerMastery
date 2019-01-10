@@ -40,9 +40,17 @@ docker service scale web=5
 
 docker service update --image nginx:1.13.6 web
 
-docker service update --publish-rm 8088 --publish-add 9090:80
+docker service update --publish-rm 8088 --publish-add 9090:80 web
 
 docker service update --force web
+
+gcloud compute firewall-rules create default-allow-docker-extras8088 --allow tcp:8088 \
+            --description "Allow incoming traffic on TCP port 8088" \
+            --direction INGRESS
+
+gcloud compute firewall-rules create default-allow-docker-extras9090 --allow tcp:9090 \
+            --description "Allow incoming traffic on TCP port 9090" \
+            --direction INGRESS
 
 ## Healthchecks in Dockerfiles
 
